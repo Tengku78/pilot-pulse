@@ -23,9 +23,9 @@ export default async function HomePage() {
     .limit(6);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-slate-900">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[70vh] flex flex-col items-center justify-center overflow-hidden">
         {/* Background with airplane cockpit */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -36,51 +36,51 @@ export default async function HomePage() {
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/85 to-slate-900" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/70 to-slate-900" />
         </div>
 
-        {/* Airline logos strip at top */}
+        {/* Top Airline Logos Strip */}
         {featuredAirlines && featuredAirlines.length > 0 && (
-          <div className="absolute top-20 left-0 right-0 z-10">
-            <div className="container mx-auto px-4">
-              <div className="flex items-center justify-center gap-12 flex-wrap">
-                {featuredAirlines.slice(0, 6).map((airline) => (
-                  <div
-                    key={airline.id}
-                    className="opacity-80 hover:opacity-100 transition-opacity"
-                  >
-                    {airline.logo_url && (
-                      <Image
-                        src={airline.logo_url}
-                        alt={airline.name}
-                        width={100}
-                        height={50}
-                        className="object-contain"
-                        unoptimized
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
+          <div className="absolute top-8 left-0 right-0 z-10">
+            <div className="flex items-center justify-center gap-8 px-4">
+              {featuredAirlines.map((airline) => (
+                <div key={airline.id} className="opacity-70 hover:opacity-100 transition-opacity">
+                  {airline.logo_url && (
+                    <Image
+                      src={airline.logo_url}
+                      alt={airline.name}
+                      width={80}
+                      height={40}
+                      className="object-contain"
+                      unoptimized
+                    />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 text-center pt-20">
-          <h1 className="text-7xl md:text-9xl font-bold text-white mb-6 tracking-tight">
+        <div className="relative z-10 text-center space-y-6 px-4">
+          <h1 className="text-7xl md:text-9xl font-bold text-white tracking-tight">
             Pilot Pulse
           </h1>
-          <p className="text-2xl md:text-3xl text-gray-300 mb-12">
+          <p className="text-2xl md:text-3xl text-gray-300">
             Your Aviation Career: Elevated.
           </p>
 
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto pt-4">
             <div className="relative">
-              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+              <input
+                type="text"
+                placeholder="Search airline"
+                className="w-full px-6 py-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="w-5 h-5 text-white/60"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,39 +93,15 @@ export default async function HomePage() {
                   />
                 </svg>
               </div>
-              <input
-                type="text"
-                placeholder="Search airline"
-                className="w-full pl-12 pr-12 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <button className="absolute inset-y-0 right-2 flex items-center pr-2">
-                <div className="p-2 hover:bg-white/10 rounded-full transition-colors">
-                  <svg
-                    className="w-5 h-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                    />
-                  </svg>
-                </div>
-              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* Latest Jobs Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-4xl font-bold text-white">Latest Jobs</h2>
-          </div>
+      <section className="py-16 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-10">Latest Jobs</h2>
 
           {latestJobs && latestJobs.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -133,65 +109,60 @@ export default async function HomePage() {
                 <Link
                   key={job.id}
                   href={`/jobs/${job.id}`}
-                  className="group"
+                  className="block group"
                 >
-                  <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:bg-slate-800/70 hover:border-blue-500/50 transition-all duration-300">
-                    {/* Airline Logo & Title */}
-                    <div className="flex items-start gap-4 mb-4">
+                  <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300 space-y-4">
+                    {/* Logo & Title */}
+                    <div className="flex items-center space-x-4">
                       {job.airline_logo_url && (
-                        <div className="w-12 h-12 rounded-full bg-slate-700/50 flex items-center justify-center flex-shrink-0">
+                        <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
                           <Image
                             src={job.airline_logo_url}
                             alt={job.airline_name}
-                            width={32}
-                            height={32}
+                            width={36}
+                            height={36}
                             className="object-contain"
                             unoptimized
                           />
                         </div>
                       )}
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-white truncate group-hover:text-blue-400 transition-colors">
                           {job.title}
                         </h3>
-                        <p className="text-sm text-gray-400">{job.airline_name}</p>
+                        <p className="text-sm text-gray-400 truncate">{job.airline_name}</p>
                       </div>
                     </div>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-900/50 text-orange-300 border border-orange-500/30">
                         {job.contract_type}
                       </span>
+                      {job.region && (
+                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-900/50 text-blue-300 border border-blue-500/30">
+                          {job.region}
+                        </span>
+                      )}
                       {job.tags && job.tags.slice(0, 2).map((tag, index) => (
                         <span
                           key={index}
-                          className="px-3 py-1 text-xs font-medium rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                          className="px-3 py-1 text-xs font-medium rounded-full bg-purple-900/50 text-purple-300 border border-purple-500/30"
                         >
                           {tag}
                         </span>
                       ))}
-                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                        VIP
-                      </span>
                     </div>
 
-                    {/* Location */}
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-sm text-gray-400">
-                        <span className="font-medium text-gray-300">Region:</span>
-                        <span className="ml-2">{job.region}</span>
+                    {/* Location Info */}
+                    {job.city && (
+                      <div className="text-sm text-gray-400">
+                        <span className="font-medium">Location:</span> {job.city}, {job.country}
                       </div>
-                      {job.city && (
-                        <div className="flex items-center text-sm text-gray-400">
-                          <span className="font-medium text-gray-300">Location:</span>
-                          <span className="ml-2">{job.city}</span>
-                        </div>
-                      )}
-                    </div>
+                    )}
 
                     {/* Apply Button */}
-                    <button className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">
+                    <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold text-white transition-colors">
                       Apply Now
                     </button>
                   </div>
@@ -199,9 +170,9 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-12 text-center">
+            <div className="p-12 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-center">
               <div className="text-6xl mb-4">✈️</div>
-              <h3 className="text-xl font-semibold text-white mb-2">No Jobs Yet</h3>
+              <h3 className="text-2xl font-semibold text-white mb-2">No Jobs Yet</h3>
               <p className="text-gray-400">New opportunities are being added soon!</p>
             </div>
           )}
@@ -210,8 +181,8 @@ export default async function HomePage() {
 
       {/* Featured Airlines Section */}
       {featuredAirlines && featuredAirlines.length > 0 && (
-        <section className="py-16 px-4 bg-slate-900/50">
-          <div className="container mx-auto">
+        <section className="py-16 px-4 md:px-8 bg-slate-800/30">
+          <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-bold text-white text-center mb-12">
               Featured Airlines
             </h2>
@@ -219,17 +190,18 @@ export default async function HomePage() {
               {featuredAirlines.map((airline) => (
                 <div
                   key={airline.id}
-                  className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 flex flex-col items-center justify-center hover:bg-slate-800/70 hover:border-blue-500/50 transition-all duration-300 cursor-pointer group"
+                  className="p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-blue-500/50 transition-all duration-300 flex items-center justify-center cursor-pointer group"
                 >
                   {airline.logo_url ? (
-                    <Image
-                      src={airline.logo_url}
-                      alt={airline.name}
-                      width={120}
-                      height={60}
-                      className="object-contain filter brightness-90 group-hover:brightness-100 transition-all"
-                      unoptimized
-                    />
+                    <div className="w-full h-20 relative">
+                      <Image
+                        src={airline.logo_url}
+                        alt={airline.name}
+                        fill
+                        className="object-contain filter brightness-90 group-hover:brightness-100 transition-all"
+                        unoptimized
+                      />
+                    </div>
                   ) : (
                     <span className="text-lg font-semibold text-white">{airline.name}</span>
                   )}
@@ -241,26 +213,26 @@ export default async function HomePage() {
       )}
 
       {/* Explore by Region Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
+      <section className="py-16 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12">
             Explore by Region
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Middle East', count: '150+', color: 'from-orange-500 to-red-500' },
-              { name: 'Europe', count: '200+', color: 'from-blue-500 to-cyan-500' },
-              { name: 'Asia Pacific', count: '180+', color: 'from-purple-500 to-pink-500' },
-              { name: 'Americas', count: '120+', color: 'from-green-500 to-emerald-500' },
+              { name: 'Middle East', count: '150+', color: 'from-orange-600 to-red-600' },
+              { name: 'Europe', count: '200+', color: 'from-blue-600 to-cyan-600' },
+              { name: 'Asia Pacific', count: '180+', color: 'from-purple-600 to-pink-600' },
+              { name: 'Americas', count: '120+', color: 'from-green-600 to-emerald-600' },
             ].map((region) => (
               <Link
                 key={region.name}
                 href={`/jobs?region=${encodeURIComponent(region.name)}`}
                 className="group"
               >
-                <div className={`bg-gradient-to-br ${region.color} rounded-2xl p-8 hover:scale-105 transition-transform duration-300`}>
+                <div className={`p-8 rounded-2xl bg-gradient-to-br ${region.color} backdrop-blur-md border border-white/20 hover:scale-105 transition-transform duration-300 text-center`}>
                   <h3 className="text-2xl font-bold text-white mb-2">{region.name}</h3>
-                  <p className="text-white/80">{region.count} jobs available</p>
+                  <p className="text-white/90 font-medium">{region.count} jobs available</p>
                 </div>
               </Link>
             ))}
