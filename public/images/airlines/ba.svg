@@ -1,0 +1,5 @@
+<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="80" rx="8" fill="#075aaa"/>
+  <text x="100" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">British</text>
+  <text x="100" y="58" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Airways</text>
+</svg>

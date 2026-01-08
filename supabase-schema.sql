@@ -459,9 +459,9 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Insert sample featured airlines (you can update these)
 INSERT INTO featured_airlines (name, logo_url, website, is_active, display_order) VALUES
-  ('Emirates', '/images/airlines/emirates.png', 'https://www.emirates.com/careers', true, 1),
-  ('Qatar Airways', '/images/airlines/qatar.png', 'https://careers.qatarairways.com', true, 2),
-  ('Singapore Airlines', '/images/airlines/singapore.png', 'https://www.singaporeair.com/careers', true, 3),
-  ('Lufthansa', '/images/airlines/lufthansa.png', 'https://careers.lufthansa.com', true, 4),
-  ('British Airways', '/images/airlines/ba.png', 'https://careers.ba.com', true, 5),
-  ('Delta Air Lines', '/images/airlines/delta.png', 'https://careers.delta.com', true, 6);
+  ('Emirates', '/images/airlines/emirates.svg', 'https://www.emirates.com/careers', true, 1),
+  ('Qatar Airways', '/images/airlines/qatar.svg', 'https://careers.qatarairways.com', true, 2),
+  ('Singapore Airlines', '/images/airlines/singapore.svg', 'https://www.singaporeair.com/careers', true, 3),
+  ('Lufthansa', '/images/airlines/lufthansa.svg', 'https://careers.lufthansa.com', true, 4),
+  ('British Airways', '/images/airlines/ba.svg', 'https://careers.ba.com', true, 5),
+  ('Delta Air Lines', '/images/airlines/delta.svg', 'https://careers.delta.com', true, 6);
