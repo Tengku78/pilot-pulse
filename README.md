@@ -66,7 +66,7 @@ npm install
 
 ```bash
 # Copy the environment template
-cp .env.local.example .env.local
+cp .env.example .env.local
 
 # Edit .env.local with your Supabase credentials
 ```
@@ -94,14 +94,12 @@ Visit [http://localhost:3000](http://localhost:3000)
 2. Verify your email
 3. In Supabase **Table Editor** → **profiles**, change your `role` to `admin`
 
-## 📚 Detailed Setup
+## 📚 Documentation
 
-See [SETUP.md](./SETUP.md) for comprehensive setup instructions including:
-- Supabase configuration
-- Storage bucket setup
-- Authentication providers
-- Deployment to Vercel
-- Custom domain setup
+- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - Complete deployment walkthrough (GitHub → Supabase → Vercel)
+- **[SETUP.md](./SETUP.md)** - Detailed setup instructions
+- **[PROJECT_STATUS.md](./PROJECT_STATUS.md)** - Current feature status and roadmap
+- **[NEXT_STEPS.md](./NEXT_STEPS.md)** - What to do after setup
 
 ## 🏗️ Project Structure
 
@@ -205,24 +203,23 @@ npm start
 See [PROJECT_STATUS.md](./PROJECT_STATUS.md) for detailed progress tracking.
 
 ### Completed ✅
-- Core authentication system
-- Glassmorphism UI components
-- Homepage with hero section
-- Jobs listing with filtering
-- Database schema with RLS
-- Responsive navigation
-
-### In Progress 🚧
-- Job detail pages
-- Job application system
+- ✅ Core authentication system (signup, login, role-based access)
+- ✅ Glassmorphism UI components
+- ✅ Homepage with hero section and featured airlines
+- ✅ Jobs listing with filtering and search
+- ✅ Job detail pages with full information
+- ✅ Job application system with resume upload
+- ✅ My Applications page with tracking
+- ✅ Database schema with RLS policies
+- ✅ Responsive navigation
 
 ### To Do 📋
-- Flight Schools section
-- Community Forum
-- Recruiter Dashboard
-- Admin Panel
-- News section
-- Automated scraping
+- 🚧 Recruiter Dashboard (post jobs, manage applications)
+- 🚧 Flight Schools section
+- 🚧 Community Forum with realtime
+- 🚧 Admin Panel
+- 🚧 News section with RSS feeds
+- 🚧 Automated job scraping
 
 ## 📝 License
 
