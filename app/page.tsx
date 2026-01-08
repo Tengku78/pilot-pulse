@@ -14,7 +14,7 @@ export default async function HomePage() {
     .order('display_order', { ascending: true })
     .limit(6);
 
-  // Fetch latest jobs
+  // Fetch latest jobs (limit to 6 for homepage)
   const { data: latestJobs } = await supabase
     .from('jobs')
     .select('*')
@@ -23,177 +23,183 @@ export default async function HomePage() {
     .limit(6);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+        {/* Background with airplane cockpit */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-airplane.jpg"
             alt="Aviation Background"
             fill
-            className="object-cover opacity-20"
+            className="object-cover"
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-aviation-navy-dark/90 to-aviation-navy/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/85 to-slate-900" />
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 py-32">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-              Your Aviation Career
-              <br />
-              <span className="text-aviation-blue-light">Takes Flight Here</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto">
-              Discover pilot and cabin crew opportunities worldwide. Connect with leading airlines and flight schools.
-            </p>
-
-            {/* Search Bar */}
-            <div className="glass-card p-4 max-w-3xl mx-auto mb-8">
-              <div className="flex flex-col md:flex-row gap-4">
-                <input
-                  type="text"
-                  placeholder="Job title, airline, or keyword..."
-                  className="glass-input flex-1"
-                />
-                <input
-                  type="text"
-                  placeholder="Location..."
-                  className="glass-input md:w-48"
-                />
-                <button className="glass-button px-8 py-3 rounded-lg font-medium hover:scale-105 transition-transform">
-                  Search Jobs
-                </button>
+        {/* Airline logos strip at top */}
+        {featuredAirlines && featuredAirlines.length > 0 && (
+          <div className="absolute top-8 left-0 right-0 z-10">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-center gap-8 flex-wrap">
+                {featuredAirlines.slice(0, 6).map((airline) => (
+                  <div
+                    key={airline.id}
+                    className="opacity-70 hover:opacity-100 transition-opacity"
+                  >
+                    {airline.logo_url && (
+                      <Image
+                        src={airline.logo_url}
+                        alt={airline.name}
+                        width={80}
+                        height={40}
+                        className="object-contain filter brightness-0 invert"
+                        unoptimized
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {[
-                { label: 'Active Jobs', value: '500+' },
-                { label: 'Airlines', value: '150+' },
-                { label: 'Flight Schools', value: '200+' },
-                { label: 'Success Stories', value: '10k+' },
-              ].map((stat) => (
-                <div key={stat.label} className="glass p-4 rounded-lg">
-                  <div className="text-2xl md:text-3xl font-bold text-aviation-blue-light mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
+        )}
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-white/50 rounded-full" />
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
+            Pilot Pulse
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 mb-8">
+            Your Aviation Career: Elevated.
+          </p>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                <svg
+                  className="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search airline"
+                className="w-full pl-12 pr-12 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <button className="absolute inset-y-0 right-2 flex items-center pr-2">
+                <div className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                  <svg
+                    className="w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Airlines Section */}
-      {featuredAirlines && featuredAirlines.length > 0 && (
-        <section className="py-20 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-              Featured Airlines
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {featuredAirlines.map((airline) => (
-                <div
-                  key={airline.id}
-                  className="glass-card p-6 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer"
-                >
-                  {airline.logo_url ? (
-                    <Image
-                      src={airline.logo_url}
-                      alt={airline.name}
-                      width={120}
-                      height={60}
-                      className="object-contain filter brightness-90 hover:brightness-100 transition-all"
-                      unoptimized
-                    />
-                  ) : (
-                    <div className="text-center">
-                      <div className="text-2xl mb-2">✈️</div>
-                      <div className="text-sm text-gray-300">{airline.name}</div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Latest Jobs Section */}
-      <section className="py-20 px-4">
+      <section className="py-16 px-4">
         <div className="container mx-auto">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Latest Jobs</h2>
-            <Link
-              href="/jobs"
-              className="glass-button px-6 py-3 rounded-lg font-medium hover:scale-105 transition-transform"
-            >
-              View All Jobs
-            </Link>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-4xl font-bold text-white">Latest Jobs</h2>
           </div>
 
           {latestJobs && latestJobs.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {latestJobs.map((job) => (
-                <div key={job.id} className="glass-card p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">{job.title}</h3>
-                      <p className="text-aviation-blue-light font-medium">{job.airline_name}</p>
+                <Link
+                  key={job.id}
+                  href={`/jobs/${job.id}`}
+                  className="group"
+                >
+                  <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:bg-slate-800/70 hover:border-blue-500/50 transition-all duration-300">
+                    {/* Airline Logo & Title */}
+                    <div className="flex items-start gap-4 mb-4">
+                      {job.airline_logo_url && (
+                        <div className="w-12 h-12 rounded-full bg-slate-700/50 flex items-center justify-center flex-shrink-0">
+                          <Image
+                            src={job.airline_logo_url}
+                            alt={job.airline_name}
+                            width={32}
+                            height={32}
+                            className="object-contain"
+                            unoptimized
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">
+                          {job.title}
+                        </h3>
+                        <p className="text-sm text-gray-400">{job.airline_name}</p>
+                      </div>
                     </div>
-                    {job.airline_logo_url && (
-                      <Image
-                        src={job.airline_logo_url}
-                        alt={job.airline_name}
-                        width={50}
-                        height={50}
-                        className="object-contain"
-                        unoptimized
-                      />
-                    )}
-                  </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="tag">{job.contract_type}</span>
-                    <span className="tag">{job.region}</span>
-                    {job.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="tag tag-success">
-                        {tag}
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30">
+                        {job.contract_type}
                       </span>
-                    ))}
-                  </div>
+                      {job.tags && job.tags.slice(0, 2).map((tag, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 text-xs font-medium rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        VIP
+                      </span>
+                    </div>
 
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">{job.description}</p>
+                    {/* Location */}
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center text-sm text-gray-400">
+                        <span className="font-medium text-gray-300">Region:</span>
+                        <span className="ml-2">{job.region}</span>
+                      </div>
+                      {job.city && (
+                        <div className="flex items-center text-sm text-gray-400">
+                          <span className="font-medium text-gray-300">Location:</span>
+                          <span className="ml-2">{job.city}</span>
+                        </div>
+                      )}
+                    </div>
 
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">
-                      {new Date(job.posted_at).toLocaleDateString()}
-                    </span>
-                    <Link
-                      href={`/jobs/${job.id}`}
-                      className="glass-button px-4 py-2 rounded-lg text-sm font-medium hover:scale-105 transition-transform"
-                    >
+                    {/* Apply Button */}
+                    <button className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">
                       Apply Now
-                    </Link>
+                    </button>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (
-            <div className="glass-card p-12 text-center">
+            <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-12 text-center">
               <div className="text-6xl mb-4">✈️</div>
               <h3 className="text-xl font-semibold text-white mb-2">No Jobs Yet</h3>
               <p className="text-gray-400">New opportunities are being added soon!</p>
@@ -202,84 +208,62 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-            Why Choose PilotPulse?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: '🎯',
-                title: 'Targeted Opportunities',
-                description:
-                  'Find jobs specifically for pilots and cabin crew from airlines worldwide.',
-              },
-              {
-                icon: '🏫',
-                title: 'Flight School Directory',
-                description:
-                  'Access comprehensive information about accredited flight schools globally.',
-              },
-              {
-                icon: '💬',
-                title: 'Community Forum',
-                description:
-                  'Connect with aviation professionals, share experiences, and get career advice.',
-              },
-              {
-                icon: '📰',
-                title: 'Industry News',
-                description: 'Stay updated with the latest aviation industry news and trends.',
-              },
-              {
-                icon: '⚡',
-                title: 'Real-time Updates',
-                description: 'Get instant notifications about new job postings and opportunities.',
-              },
-              {
-                icon: '🔒',
-                title: 'Secure & Private',
-                description:
-                  'Your data is protected with enterprise-level security and privacy.',
-              },
-            ].map((feature) => (
-              <div key={feature.title} className="glass-card p-6 text-center">
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="glass-card p-12 text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Ready to Take Off?
+      {/* Featured Airlines Section */}
+      {featuredAirlines && featuredAirlines.length > 0 && (
+        <section className="py-16 px-4 bg-slate-900/50">
+          <div className="container mx-auto">
+            <h2 className="text-4xl font-bold text-white text-center mb-12">
+              Featured Airlines
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Join thousands of aviation professionals who have found their dream careers through
-              PilotPulse.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/auth/register"
-                className="glass-button px-8 py-4 rounded-lg font-medium text-lg hover:scale-105 transition-transform"
-              >
-                Create Free Account
-              </Link>
-              <Link
-                href="/jobs"
-                className="glass px-8 py-4 rounded-lg font-medium text-lg hover:bg-white/10 transition-colors text-white"
-              >
-                Browse Jobs
-              </Link>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {featuredAirlines.map((airline) => (
+                <div
+                  key={airline.id}
+                  className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 flex flex-col items-center justify-center hover:bg-slate-800/70 hover:border-blue-500/50 transition-all duration-300 cursor-pointer group"
+                >
+                  {airline.logo_url ? (
+                    <Image
+                      src={airline.logo_url}
+                      alt={airline.name}
+                      width={120}
+                      height={60}
+                      className="object-contain filter brightness-90 group-hover:brightness-100 transition-all"
+                      unoptimized
+                    />
+                  ) : (
+                    <span className="text-lg font-semibold text-white">{airline.name}</span>
+                  )}
+                </div>
+              ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Explore by Region Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-12">
+            Explore by Region
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { name: 'Middle East', count: '150+', color: 'from-orange-500 to-red-500' },
+              { name: 'Europe', count: '200+', color: 'from-blue-500 to-cyan-500' },
+              { name: 'Asia Pacific', count: '180+', color: 'from-purple-500 to-pink-500' },
+              { name: 'Americas', count: '120+', color: 'from-green-500 to-emerald-500' },
+            ].map((region) => (
+              <Link
+                key={region.name}
+                href={`/jobs?region=${encodeURIComponent(region.name)}`}
+                className="group"
+              >
+                <div className={`bg-gradient-to-br ${region.color} rounded-2xl p-8 hover:scale-105 transition-transform duration-300`}>
+                  <h3 className="text-2xl font-bold text-white mb-2">{region.name}</h3>
+                  <p className="text-white/80">{region.count} jobs available</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
