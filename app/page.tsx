@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Background with airplane cockpit */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -41,21 +41,21 @@ export default async function HomePage() {
 
         {/* Airline logos strip at top */}
         {featuredAirlines && featuredAirlines.length > 0 && (
-          <div className="absolute top-8 left-0 right-0 z-10">
+          <div className="absolute top-20 left-0 right-0 z-10">
             <div className="container mx-auto px-4">
-              <div className="flex items-center justify-center gap-8 flex-wrap">
+              <div className="flex items-center justify-center gap-12 flex-wrap">
                 {featuredAirlines.slice(0, 6).map((airline) => (
                   <div
                     key={airline.id}
-                    className="opacity-70 hover:opacity-100 transition-opacity"
+                    className="opacity-80 hover:opacity-100 transition-opacity"
                   >
                     {airline.logo_url && (
                       <Image
                         src={airline.logo_url}
                         alt={airline.name}
-                        width={80}
-                        height={40}
-                        className="object-contain filter brightness-0 invert"
+                        width={100}
+                        height={50}
+                        className="object-contain"
                         unoptimized
                       />
                     )}
@@ -67,11 +67,11 @@ export default async function HomePage() {
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
+        <div className="relative z-10 container mx-auto px-4 text-center pt-20">
+          <h1 className="text-7xl md:text-9xl font-bold text-white mb-6 tracking-tight">
             Pilot Pulse
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
+          <p className="text-2xl md:text-3xl text-gray-300 mb-12">
             Your Aviation Career: Elevated.
           </p>
 
